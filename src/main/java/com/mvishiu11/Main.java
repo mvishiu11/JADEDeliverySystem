@@ -1,6 +1,5 @@
 package com.mvishiu11;
 
-import com.mvishiu11.agents.MarketAgent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -86,6 +85,24 @@ public class Main {
                     "com.mvishiu11.agents.MarketAgent",
                     new Object[]{ "Market4", inventory4 }
             );
+
+            // Start the Sniffer agent with a list of agents to monitor.
+            final AgentController snifferAgent = mainContainer.createNewAgent(
+                    "Sniffer",
+                    "jade.tools.sniffer.Sniffer",
+                    new Object[]{ new String[]{
+                            "ClientAgent",
+                            "DeliveryAgent1",
+                            "DeliveryAgent2",
+                            "MarketAgent1",
+                            "MarketAgent2",
+                            "MarketAgent3",
+                            "MarketAgent4",
+                    } }
+            );
+            snifferAgent.start();
+
+            Thread.sleep(15000);
 
             // Start all agents
             clientAgent.start();
